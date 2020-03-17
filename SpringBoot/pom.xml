@@ -13,6 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>SpringBoot</name>
     <description>Demo project for Spring Boot</description>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>1.8</java.version>
@@ -100,10 +101,17 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <!-- springboot tomcat 支持 -->
-        <dependency>
+<!--        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
+        </dependency>-->
+        <!-- mysql-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.47</version>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>
