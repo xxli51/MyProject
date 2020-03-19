@@ -20,12 +20,13 @@
         </el-form-item>
         <el-form-item label="封面" :label-width="formLabelWidth" prop="cover">
           <el-input v-model="form.cover" autocomplete="off" placeholder="图片 URL"></el-input>
+          <img-upload @onUpload="uploadImg" ref="imgUpload"></img-upload>
         </el-form-item>
         <el-form-item label="简介" :label-width="formLabelWidth" prop="abs">
           <el-input type="textarea" v-model="form.abs" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="分类" :label-width="formLabelWidth" prop="cid">
-          <el-select v-model="form.category.tmCategoryId" placeholder="请选择分类">
+        <el-form-item label="分类" :label-width="formLabelWidth" prop="tmCategoryId">
+          <el-select v-model="form.tmCategoryId" placeholder="请选择分类">
             <el-option label="文学" value="1"></el-option>
             <el-option label="流行" value="2"></el-option>
             <el-option label="文化" value="3"></el-option>
@@ -46,9 +47,12 @@
   </div>
 </template>
 
+
 <script>
+import ImgUpload from './ImgUpload';
 export default {
   name: 'EditForm',
+  components: {ImgUpload},
   data () {
     return {
       dialogFormVisible: false,
@@ -91,13 +95,20 @@ export default {
           date: this.form.date,
           press: this.form.press,
           abs: this.form.abs,
-          category: this.form.category
+          tmCategoryId: this.form.tmCategoryId
         }).then(resp => {
         if (resp && resp.status === 200) {
           this.dialogFormVisible = false
           this.$emit('onSubmit')
+        }else{
+          this.dialogFormVisible = false
+          this.$emit('onSubmit')
+          this.$message.warning('保存失败!!!')
         }
-      })
+      });
+    },
+    uploadImg () {
+      this.form.cover = this.$refs.imgUpload.url
     }
   }
 }

@@ -8,6 +8,7 @@
         <result column="TITLE" jdbcType="VARCHAR" property="title"/>
         <result column="AUTHOR" jdbcType="VARCHAR" property="author"/>
         <result column="PRESS" jdbcType="VARCHAR" property="press"/>
+        <result column="DATE" jdbcType="VARCHAR" property="date"/>
         <result column="ABS" jdbcType="VARCHAR" property="abs"/>
         <result column="TM_CATEGORY_ID" jdbcType="DECIMAL" property="tmCategoryId"/>
         <result column="CREATE_BY" jdbcType="DECIMAL" property="createBy"/>
@@ -17,14 +18,40 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-    TM_BOOK_ID, COVER, TITLE, AUTHOR, PRESS, ABS, TM_CATEGORY_ID, CREATE_BY, CREATE_DATE,
+    TM_BOOK_ID, COVER, TITLE, AUTHOR, PRESS, ABS, DATE, TM_CATEGORY_ID, CREATE_BY, CREATE_DATE,
     UPDATE_BY, UPDATE_DATE
   </sql>
 
-    <select id="queryAllBook" resultMap="BaseResultMap">
+    <select id="queryAllBook" resultMap="BaseResultMap" parameterType="java.lang.Long">
         SELECT
         <include refid="Base_Column_List"/>
         FROM TM_BOOK
+        <where>
+            <if test="tmCategoryId !=null and '' != tmCategoryId">
+                TM_CATEGORY_ID = #{tmCategoryId,jdbcType=DECIMAL}
+            </if>
+        </where>
     </select>
+
+    <update id="insertBooks" parameterType="com.example.demo.entity.Book">
+        INSERT INTO TM_BOOK(COVER,TITLE,AUTHOR,DATE,PRESS,ABS,TM_CATEGORY_ID,CREATE_BY,CREATE_DATE)
+        VALUES(#{cover,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},
+        #{author,jdbcType=VARCHAR},#{date,jdbcType=VARCHAR},
+        #{press,jdbcType=VARCHAR},#{abs,jdbcType=VARCHAR},
+        #{tmCategoryId,jdbcType=DECIMAL},1000,NOW())
+    </update>
+
+    <!-- 更新书信息 -->
+    <update id="updateBooks" parameterType="com.example.demo.entity.Book">
+        UPDATE TM_BOOK SET COVER = #{cover,jdbcType=VARCHAR}, TITLE = #{title,jdbcType=VARCHAR},
+        AUTHOR = #{author,jdbcType=VARCHAR}, DATE = #{date,jdbcType=VARCHAR}, PRESS = #{press,jdbcType=VARCHAR},
+        ABS = #{abs,jdbcType=VARCHAR}, TM_CATEGORY_ID = #{tmCategoryId,jdbcType=DECIMAL}, UPDATE_BY = 1000, UPDATE_DATE = NOW()
+        WHERE TM_BOOK_ID = #{tmBookId,jdbcType=DECIMAL}
+    </update>
+
+    <!-- 删除书信息 -->
+    <delete id="deleteBookById" parameterType="java.lang.Long">
+        DELETE FROM TM_BOOK WHERE TM_BOOK_ID = #{tmBookId,jdbcType=DECIMAL}
+    </delete>
 
 </mapper>

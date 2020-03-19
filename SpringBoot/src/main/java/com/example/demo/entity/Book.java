@@ -12,6 +12,7 @@ public class Book {
     private String cover;
     private String title;
     private String author;
+    private String date;
     private String press;
     private String abs;
     private Long tmCategoryId;
@@ -50,6 +51,14 @@ public class Book {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getPress() {

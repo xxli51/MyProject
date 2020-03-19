@@ -39,6 +39,12 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    //默认初始加载
+    {
+      path: '/',
+      name: 'Login',
+      component: Login
     }
   ]
 })

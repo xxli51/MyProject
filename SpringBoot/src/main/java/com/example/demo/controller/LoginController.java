@@ -32,10 +32,10 @@ public class LoginController {
         requestUser.setUserName(userName);
         requestUser = userService.queryUserByNo(requestUser);
         if (null == requestUser) {
-            return new Result(400);
+            return new Result(400,null,"error");
         } else {
             session.setAttribute("user", requestUser);
-            return new Result(200);
+            return new Result(200,null,"success");
         }
     }
 

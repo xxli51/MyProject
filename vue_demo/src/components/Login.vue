@@ -19,6 +19,8 @@
 </template>
 
 <script>
+// 引入接口
+import { postMessage } from "@/api/info";
 export default {
   name: 'Login',
   data () {
@@ -33,23 +35,18 @@ export default {
   methods: {
     login () {
       var _this = this
-      console.log(this.$store.state)
-      this.$axios
-        .post('/login', {
+      postMessage('/login','post', {
           userName: this.loginForm.userName,
           passWord: this.loginForm.passWord
-        })
-        .then(successResponse => {
-          if (successResponse.data.code === 200) {
+        }).then(res => {
+          if (res.code === 200) {
             _this.$store.commit('login', _this.loginForm)
             var path = this.$route.query.redirect
             this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
           } else {
              alert("登陆失败,请重试!!!");
           }
-        })
-        .catch(failResponse => {
-        })
+        });
     }
   }
 }

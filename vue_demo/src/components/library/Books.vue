@@ -21,7 +21,7 @@
             <div class="title">
               <a href="">{{item.title}}</a>
             </div>
-            <i class="el-icon-delete" @click="deleteBook(item.id)"></i>
+            <i class="el-icon-delete" @click="deleteBook(item.tmBookId)"></i>
           </div>
           <div class="author">{{item.author}}</div>
         </el-card>
@@ -86,7 +86,7 @@ export default {
         type: 'warning'
       }).then(() => {
           this.$axios
-            .post('/delete', {id: id}).then(resp => {
+            .post('/delete', {tmBookId: id}).then(resp => {
             if (resp && resp.status === 200) {
               this.loadBooks()
             }
@@ -111,8 +111,8 @@ export default {
         press: item.press,
         abs: item.abs,
         category: {
-          tmCategoryId: item.category.id.toString(),
-          categoryName: item.category.name
+          //tmCategoryId: item.category.tmCategoryId.toString(),
+          //categoryName: item.category.name
         }
       }
     }
@@ -120,57 +120,55 @@ export default {
 }
 </script>
 <style scoped>
+.cover {
+  width: 115px;
+  height: 172px;
+  margin-bottom: 7px;
+  overflow: hidden;
+  cursor: pointer;
+}
 
-  .cover {
-    width: 115px;
-    height: 172px;
-    margin-bottom: 7px;
-    overflow: hidden;
-    cursor: pointer;
-  }
+img {
+  width: 115px;
+  height: 172px;
+  /*margin: 0 auto;*/
+}
+.title {
+  font-size: 14px;
+  text-align: left;
+}
 
-  img {
-    width: 115px;
-    height: 172px;
-    /*margin: 0 auto;*/
-  }
+.author {
+  color: #333;
+  width: 102px;
+  font-size: 13px;
+  margin-bottom: 6px;
+  text-align: left;
+}
 
-  .title {
-    font-size: 14px;
-    text-align: left;
-  }
+.abstract {
+  display: block;
+  line-height: 17px;
+}
 
-  .author {
-    color: #333;
-    width: 102px;
-    font-size: 13px;
-    margin-bottom: 6px;
-    text-align: left;
-  }
+.el-icon-delete {
+  cursor: pointer;
+  float: right;
+}
 
-  .abstract {
-    display: block;
-    line-height: 17px;
-  }
+.switch {
+  display: flex;
+  position: absolute;
+  left: 780px;
+  top: 25px;
+}
 
-  .el-icon-delete {
-    cursor: pointer;
-    float: right;
-  }
+a {
+  text-decoration: none;
+}
 
-  .switch {
-    display: flex;
-    position: absolute;
-    left: 780px;
-    top: 25px;
-  }
-
-  a {
-    text-decoration: none;
-  }
-
-  a:link, a:visited, a:focus {
-    color: #3377aa;
-  }
+a:link, a:visited, a:focus {
+  color: #3377aa;
+}
 
 </style>

@@ -1,12 +1,12 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.BookMapper;
+import com.example.demo.entity.Book;
 import com.example.demo.iservice.IBookService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import com.example.demo.entity.Book;
 import java.util.List;
 
 /**
@@ -21,21 +21,25 @@ public class BookService implements IBookService {
 
     @Override
     public List<Book> queryAllBook() {
-        return bookMapper.queryAllBook();
+        return bookMapper.queryAllBook(null);
     }
 
     @Override
-    public Book addOrUpdate(Book book) {
-        return null;
+    public int addOrUpdate(Book book) {
+        if (book.getTmBookId() == null) {
+            return bookMapper.insertBooks(book);
+        } else {
+            return bookMapper.updateBooks(book);
+        }
     }
 
     @Override
-    public void deleteById(Book book) {
-
+    public int deleteById(Book book) {
+        return bookMapper.deleteBookById(book.getTmBookId());
     }
 
     @Override
     public List<Book> listByCategory(Long tmCategoryId) {
-        return null;
+        return bookMapper.queryAllBook(tmCategoryId);
     }
 }

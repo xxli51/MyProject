@@ -7,9 +7,9 @@ public interface IBookService {
 
     List<Book> queryAllBook();
 
-    Book addOrUpdate(Book book);
+    int addOrUpdate(Book book);
 
-    void deleteById(Book book);
+    int deleteById(Book book);
 
     List<Book> listByCategory(Long tmCategoryId);
 }
