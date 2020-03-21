@@ -21,6 +21,7 @@
 <script>
 // 引入接口
 import { postMessage } from "@/api/info";
+
 export default {
   name: 'Login',
   data () {

@@ -4,6 +4,8 @@ import AppIndex from '../components/home/AppIndex'
 import Login from '../components/Login'
 import Home from '../components/Home'
 import LibraryIndex from '../components/library/LibraryIndex'
+import JotterIndex from '../components/jotter/JotterIndex'
+import AdminIndex from '../components/admin/AdminIndex'
 
 Vue.use(Router)
 
@@ -26,9 +28,25 @@ export default new Router({
           }
         },
         {
+          path: '/jotter',
+          name: 'JotterIndex',
+          component: JotterIndex,
+          meta: {
+            requireAuth: true
+          }
+        },
+        {
           path: '/library',
           name: 'Library',
           component: LibraryIndex,
+          meta: {
+            requireAuth: true
+          }
+        },
+        {
+          path: '/admin',
+          name: 'AdminIndex',
+          component: AdminIndex,
           meta: {
             requireAuth: true
           }
