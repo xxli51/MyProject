@@ -38,8 +38,8 @@
         <!-- 加载oracel jdbc驱动包 -->
         <dependency>
             <groupId>com.oracle</groupId>
-            <artifactId>ojdbc8</artifactId>
-            <version>12.2.0.1</version>
+            <artifactId>ojdbc7</artifactId>
+            <version>12.1.0.2</version>
         </dependency>
         <!-- 这里使用的是JPA包，也可使用JDBC包进行 -->
         <dependency>

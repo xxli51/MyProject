@@ -32,17 +32,11 @@ public class LoginController {
         requestUser.setUserName(userName);
         requestUser = userService.queryUserByNo(requestUser);
         if (null == requestUser) {
-            return new Result(400,null,"error");
+            return new Result(400, null, "error");
         } else {
             session.setAttribute("user", requestUser);
-            return new Result(200,null,"success");
+            return new Result(200, null, "success");
         }
     }
 
-//    @CrossOrigin
-//    @RequestMapping(value = "/queryUser", method = RequestMethod.GET)
-//    public @ResponseBody
-//    List<Long> queryUser() {
-//        return userService.queryUserByNo("s3kpqe");
-//    }
 }
